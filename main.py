@@ -4,6 +4,7 @@ import numpy as nmp
 print(pd.__version__)
 print("Hello World")
 wordbank = pd.read_csv("words.txt", header = None).squeeze("columns")
+setword = set(wordbank)
 class Wordle:
     def comparitor(self, inputword: str, word: str) -> str:
             tryagain = []
@@ -22,18 +23,25 @@ class Wordle:
     def genword(self) -> str:
         return wordbank.sample().item()
     def play(self):  
+        x = 5
         word = self.genword()
         print("Guess (If you want to quit, press q):")
-        for i in range(5):
+        i = 0
+        while i < x:
             inputword = input("").lower()
-            if inputword == "q":
-                print(f"The word was: {word}, better luck next time!")
-                return False
-            if inputword == word: 
-                print(f"The word was: {word}, congrats!") 
-                return True
+            if inputword in setword or inputword == "q":
+                if inputword == "q":
+                    print(f"The word was: {word}, better luck next time!")
+                    return False
+                if inputword == word: 
+                    print(f"The word was: {word}, congrats!") 
+                    return True
+                else:
+                    print(f"\033[F\t",self.comparitor(inputword, word))
             else:
-                print(f"\033[F\t",self.comparitor(inputword, word))
+                print(f"\033[F\tNA***\tguess again:")
+                x= x+1
+            i+=1
         print(f"The word was: {word}, better luck next time!")
         return False
 def main():
