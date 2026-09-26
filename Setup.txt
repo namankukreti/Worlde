@@ -1,0 +1,18 @@
+#Instructions on how to set up across computer (for mac):
+
+#Use nano ~/.zshrc to create a custom terminal command playwordle like so:
+"""
+playwordle(){
+        #save present working directory to return to
+        local presentwd=$(pwd)
+        #changes directory to the wordle game
+        cd "/wordledirectorylocation" || return
+        #activate venv
+        source .venv/bin/activate
+        #run python program
+        python main.py
+        #deactivate .venv
+        deactivate
+        cd "$presentwd"
+}
+"""
